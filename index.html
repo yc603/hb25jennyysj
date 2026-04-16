@@ -7,9 +7,7 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- 🎂 WebGL 3D库 -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-
 </head>
 
 <body>
@@ -30,32 +28,36 @@
 <div class="page" id="p3">
 <div id="cake3d"></div>
 <h2>🎂 生日快乐</h2>
-<button onclick="go(4)">继续</button>
+<button onclick="startCandle()">点蜡烛</button>
 </div>
 
 <!-- 第四幕：信封 -->
 <div class="page" id="p4">
 
-<div class="env" onclick="openEnvelope()" id="env">
-<div class="flap"></div>
-<div class="body"></div>
+<div class="envelope" id="env" onclick="openSeal()">
+
+<div class="seal">🔴</div>
+
+<div class="paper" id="paper">
+<div id="letterText"></div>
+<button onclick="go(5)">收到</button>
 </div>
 
-<div class="paper" id="paper">生日快乐 🎉</div>
+</div>
 
 </div>
 
-<!-- 第五幕 -->
+<!-- 第五幕：照片+明信片 -->
 <div class="page" id="p5">
-<h2>🎉 祝福</h2>
-<button onclick="go(6)">继续</button>
+
+<div class="photos" id="photos"></div>
+
+<div class="postcard">
+<div class="postcard-back">
+<h2 id="typeText"></h2>
+</div>
 </div>
 
-<!-- 第六幕 -->
-<div class="page" id="p6">
-<video controls>
-<source src="video.mp4">
-</video>
 </div>
 
 <script src="script.js"></script>
