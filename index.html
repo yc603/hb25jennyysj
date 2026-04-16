@@ -6,7 +6,6 @@
 <title>生日礼物</title>
 
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 </head>
 
@@ -18,36 +17,40 @@
 <button onclick="go(2)">进入</button>
 </div>
 
-<!-- 第二幕：答题 -->
+<!-- 第二幕 -->
 <div class="page" id="p2">
 <h2 id="qtitle"></h2>
 <div id="options"></div>
 </div>
 
-<!-- 第三幕：3D蛋糕 -->
+<!-- 第三幕 -->
 <div class="page" id="p3">
 <div id="cake3d"></div>
-<h2>🎂 生日快乐</h2>
-<button onclick="startCandle()">点蜡烛</button>
+<h2>🎂 生日蛋糕</h2>
+<button onclick="blowCandle()">吹蜡烛 🎂</button>
 </div>
 
-<!-- 第四幕：信封 -->
+<!-- 第四幕 -->
 <div class="page" id="p4">
 
-<div class="envelope" id="env" onclick="openSeal()">
+<div class="envelope" id="env">
 
-<div class="seal">🔴</div>
+<div class="seal" onclick="openEnvelope()">🔴</div>
 
 <div class="paper" id="paper">
 <div id="letterText"></div>
-<button onclick="go(5)">收到</button>
+
+<div style="text-align:center;margin-top:15px;">
+<button onclick="go(5)">收到 💌</button>
 </div>
 
 </div>
 
 </div>
 
-<!-- 第五幕：照片+明信片 -->
+</div>
+
+<!-- 第五幕 -->
 <div class="page" id="p5">
 
 <div class="photos" id="photos"></div>
