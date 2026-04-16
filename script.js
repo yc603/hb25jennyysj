@@ -1,5 +1,8 @@
 let qIndex = 0;
 
+/* ======================
+题库
+====================== */
 const questions = [
 {q:"1+1=?", options:["1","2","3","4"], answer:"2"},
 {q:"太阳从哪边升起？", options:["西","北","东","南"], answer:"东"},
@@ -13,16 +16,21 @@ const questions = [
 {q:"生日快乐英文？", options:["Happy Day","Happy Birth","Happy Birthday","Birth Happy"], answer:"Happy Birthday"}
 ];
 
-/* 页面 */
+/* ======================
+页面切换
+====================== */
 function go(n){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById('p'+n).classList.add('active');
 
 if(n===2) loadQ();
 if(n===3) initCake3D();
+if(n===5) startPhotos();
 }
 
-/* ===== 第二幕（核心规则） ===== */
+/* ======================
+第二幕（选对才走）
+====================== */
 function loadQ(){
 let q = questions[qIndex];
 
@@ -32,32 +40,25 @@ document.getElementById("qtitle").innerText =
 let html="";
 
 q.options.forEach(opt=>{
-html += `
-<label onclick="selectAnswer(this,'${opt}')">${opt}</label>
-`;
+html += `<label onclick="check(this,'${opt}')">${opt}</label>`;
 });
 
 document.getElementById("options").innerHTML = html;
 }
 
-/* ❗关键：必须答对才前进 */
-function selectAnswer(el,value){
-
+function check(el,val){
 let correct = questions[qIndex].answer;
 
-/* 错：不提示答案、不跳 */
-if(value !== correct){
+if(val !== correct){
 el.style.background="red";
-setTimeout(()=>{ el.style.background=""; },400);
+setTimeout(()=>el.style.background="",400);
 return;
 }
 
-/* 对：直接下一题 */
 el.style.background="green";
 
 setTimeout(()=>{
 qIndex++;
-
 if(qIndex>=questions.length){
 go(3);
 }else{
@@ -66,40 +67,110 @@ loadQ();
 },500);
 }
 
-/* ===== 第三幕：WebGL 3D蛋糕 ===== */
+/* ======================
+第三幕：3D蛋糕 + 蜡烛 + 点火
+====================== */
+let flame;
+
 function initCake3D(){
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75,1,0.1,1000);
-
 const renderer = new THREE.WebGLRenderer({alpha:true});
 renderer.setSize(300,300);
+
+document.getElementById("cake3d").innerHTML="";
 document.getElementById("cake3d").appendChild(renderer.domElement);
 
-/* 蛋糕 */
-const geometry = new THREE.CylinderGeometry(1,1,2,32);
-const material = new THREE.MeshBasicMaterial({color:0xffb6c1});
-const cake = new THREE.Mesh(geometry,material);
+/* 蛋糕主体 */
+const cakeGeo = new THREE.CylinderGeometry(1.2,1.2,2,32);
+const cakeMat = new THREE.MeshBasicMaterial({color:0xffc0cb});
+const cake = new THREE.Mesh(cakeGeo,cakeMat);
 scene.add(cake);
+
+/* 蜡烛 */
+const candleGeo = new THREE.CylinderGeometry(0.05,0.05,1,16);
+const candleMat = new THREE.MeshBasicMaterial({color:0xffffff});
+const candle = new THREE.Mesh(candleGeo,candleMat);
+candle.position.y = 1.5;
+scene.add(candle);
+
+/* 火焰（初始隐藏） */
+const flameGeo = new THREE.SphereGeometry(0.1,16,16);
+const flameMat = new THREE.MeshBasicMaterial({color:0xff6600});
+flame = new THREE.Mesh(flameGeo,flameMat);
+flame.position.y = 2.1;
+flame.visible = false;
+scene.add(flame);
 
 camera.position.z = 5;
 
 function animate(){
 requestAnimationFrame(animate);
 cake.rotation.y += 0.01;
-cake.rotation.x += 0.005;
 renderer.render(scene,camera);
 }
 animate();
 }
 
-/* ===== 信封 ===== */
-function openEnvelope(){
+/* 点蜡烛 */
+function startCandle(){
+flame.visible = true;
+}
+
+/* ======================
+第四幕：信封（蜡封→半开→滚动纸）
+====================== */
+function openSeal(){
 
 let env=document.getElementById("env");
 env.classList.add("open");
 
-/* 纸张弹出 */
+/* 纸弹出 */
 let paper=document.getElementById("paper");
-paper.classList.add("show");
+paper.style.transform="translateY(40%)";
+
+/* 文字 */
+typeLetter();
+}
+
+function typeLetter(){
+let text="生日快乐 🎉\n愿你每天开心\n愿你所有愿望实现\n这是专属于你的信";
+let el=document.getElementById("letterText");
+
+el.innerHTML="";
+let i=0;
+
+let t=setInterval(()=>{
+el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+i++;
+if(i>=text.length) clearInterval(t);
+},60);
+}
+
+/* ======================
+第五幕：照片雨 + 明信片打字
+====================== */
+function startPhotos(){
+
+/* 照片雨 */
+for(let i=0;i<25;i++){
+let d=document.createElement("div");
+d.className="photo";
+d.style.left=Math.random()*100+"vw";
+d.style.animationDuration=(3+Math.random()*3)+"s";
+document.querySelector(".photos").appendChild(d);
+}
+
+/* 明信片打字 */
+let text="生日快乐";
+let el=document.getElementById("typeText");
+el.innerHTML="";
+
+let i=0;
+let t=setInterval(()=>{
+el.innerHTML += text[i];
+i++;
+if(i>=text.length) clearInterval(t);
+},200);
 }
