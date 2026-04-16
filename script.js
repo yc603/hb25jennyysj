@@ -1,8 +1,6 @@
 let qIndex = 0;
 
-/* ======================
-题库
-====================== */
+/* ===== 题库 ===== */
 const questions = [
 {q:"1+1=?", options:["1","2","3","4"], answer:"2"},
 {q:"太阳从哪边升起？", options:["西","北","东","南"], answer:"东"},
@@ -16,9 +14,7 @@ const questions = [
 {q:"生日快乐英文？", options:["Happy Day","Happy Birth","Happy Birthday","Birth Happy"], answer:"Happy Birthday"}
 ];
 
-/* ======================
-页面切换
-====================== */
+/* ===== 页面切换 ===== */
 function go(n){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById('p'+n).classList.add('active');
@@ -28,9 +24,7 @@ if(n===3) initCake3D();
 if(n===5) startPhotos();
 }
 
-/* ======================
-第二幕（选对才走）
-====================== */
+/* ===== 第二幕 ===== */
 function loadQ(){
 let q = questions[qIndex];
 
@@ -67,9 +61,7 @@ loadQ();
 },500);
 }
 
-/* ======================
-第三幕：3D蛋糕 + 蜡烛 + 点火
-====================== */
+/* ===== 3D蛋糕 ===== */
 let flame;
 
 function initCake3D(){
@@ -82,25 +74,27 @@ renderer.setSize(300,300);
 document.getElementById("cake3d").innerHTML="";
 document.getElementById("cake3d").appendChild(renderer.domElement);
 
-/* 蛋糕主体 */
-const cakeGeo = new THREE.CylinderGeometry(1.2,1.2,2,32);
-const cakeMat = new THREE.MeshBasicMaterial({color:0xffc0cb});
-const cake = new THREE.Mesh(cakeGeo,cakeMat);
+/* 蛋糕 */
+const cake = new THREE.Mesh(
+new THREE.CylinderGeometry(1.2,1.2,2,32),
+new THREE.MeshBasicMaterial({color:0xffc0cb})
+);
 scene.add(cake);
 
 /* 蜡烛 */
-const candleGeo = new THREE.CylinderGeometry(0.05,0.05,1,16);
-const candleMat = new THREE.MeshBasicMaterial({color:0xffffff});
-const candle = new THREE.Mesh(candleGeo,candleMat);
+const candle = new THREE.Mesh(
+new THREE.CylinderGeometry(0.05,0.05,1,16),
+new THREE.MeshBasicMaterial({color:0xffffff})
+);
 candle.position.y = 1.5;
 scene.add(candle);
 
-/* 火焰（初始隐藏） */
-const flameGeo = new THREE.SphereGeometry(0.1,16,16);
-const flameMat = new THREE.MeshBasicMaterial({color:0xff6600});
-flame = new THREE.Mesh(flameGeo,flameMat);
+/* 火焰 */
+flame = new THREE.Mesh(
+new THREE.SphereGeometry(0.1,16,16),
+new THREE.MeshBasicMaterial({color:0xff6600})
+);
 flame.position.y = 2.1;
-flame.visible = false;
 scene.add(flame);
 
 camera.position.z = 5;
@@ -113,61 +107,54 @@ renderer.render(scene,camera);
 animate();
 }
 
-/* 点蜡烛 */
-function startCandle(){
-flame.visible = true;
+/* 吹蜡烛 */
+function blowCandle(){
+flame.material.opacity = 0;
+flame.visible = false;
+
+setTimeout(()=>go(4),1000);
 }
 
-/* ======================
-第四幕：信封（蜡封→半开→滚动纸）
-====================== */
-function openSeal(){
+/* ===== 信封 ===== */
+function openEnvelope(){
+document.getElementById("env").classList.add("open");
 
-let env=document.getElementById("env");
-env.classList.add("open");
-
-/* 纸弹出 */
-let paper=document.getElementById("paper");
-paper.style.transform="translateY(40%)";
-
-/* 文字 */
 typeLetter();
 }
 
+/* 打字信 */
 function typeLetter(){
-let text="生日快乐 🎉\n愿你每天开心\n愿你所有愿望实现\n这是专属于你的信";
+let text="生日快乐 🎉\n愿你被世界温柔以待\n愿你所有愿望实现";
 let el=document.getElementById("letterText");
 
 el.innerHTML="";
 let i=0;
 
 let t=setInterval(()=>{
-el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+el.innerHTML += text[i]==="\n" ? "<br>" : text[i];
 i++;
 if(i>=text.length) clearInterval(t);
 },60);
 }
 
-/* ======================
-第五幕：照片雨 + 明信片打字
-====================== */
+/* ===== 第五幕 ===== */
 function startPhotos(){
 
-/* 照片雨 */
 for(let i=0;i<25;i++){
 let d=document.createElement("div");
 d.className="photo";
 d.style.left=Math.random()*100+"vw";
 d.style.animationDuration=(3+Math.random()*3)+"s";
-document.querySelector(".photos").appendChild(d);
+document.getElementById("photos").appendChild(d);
 }
 
-/* 明信片打字 */
+/* 打字 */
 let text="生日快乐";
 let el=document.getElementById("typeText");
-el.innerHTML="";
 
 let i=0;
+el.innerHTML="";
+
 let t=setInterval(()=>{
 el.innerHTML += text[i];
 i++;
