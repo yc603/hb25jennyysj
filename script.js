@@ -13,100 +13,93 @@ const questions = [
 {q:"生日快乐英文？", options:["Happy Day","Happy Birth","Happy Birthday","Birth Happy"], answer:"Happy Birthday"}
 ];
 
-/* 页面切换 */
+/* 页面 */
 function go(n){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById('p'+n).classList.add('active');
 
 if(n===2) loadQ();
+if(n===3) initCake3D();
 }
 
-/* 加载题目 */
+/* ===== 第二幕（核心规则） ===== */
 function loadQ(){
 let q = questions[qIndex];
 
 document.getElementById("qtitle").innerText =
 "第 " + (qIndex+1) + " 题：" + q.q;
 
-let html = "";
+let html="";
 
 q.options.forEach(opt=>{
 html += `
-<label onclick="selectAnswer(this,'${opt}')">
-<input type="radio" name="opt" style="display:none">
-${opt}
-</label>
+<label onclick="selectAnswer(this,'${opt}')">${opt}</label>
 `;
 });
 
 document.getElementById("options").innerHTML = html;
 }
 
-/* ⭐ 点击即判定 */
+/* ❗关键：必须答对才前进 */
 function selectAnswer(el,value){
 
 let correct = questions[qIndex].answer;
 
-/* 防止重复点击 */
-if(document.querySelector(".locked")) return;
-document.getElementById("options").classList.add("locked");
-
-if(value === correct){
-
-el.classList.add("correct");
-
-setTimeout(()=>{
-nextQ();
-},600);
-
-}else{
-
-el.classList.add("wrong");
-
-/* 标出正确答案 */
-setTimeout(()=>{
-document.querySelectorAll("label").forEach(l=>{
-if(l.innerText.trim() === correct){
-l.classList.add("correct");
-}
-});
-},300);
-
-setTimeout(()=>{
-nextQ();
-},1200);
-}
+/* 错：不提示答案、不跳 */
+if(value !== correct){
+el.style.background="red";
+setTimeout(()=>{ el.style.background=""; },400);
+return;
 }
 
-/* 下一题 */
-function nextQ(){
+/* 对：直接下一题 */
+el.style.background="green";
 
+setTimeout(()=>{
 qIndex++;
 
-document.getElementById("options").classList.remove("locked");
-
-if(qIndex >= questions.length){
+if(qIndex>=questions.length){
 go(3);
 }else{
 loadQ();
 }
+},500);
 }
 
-/* 信封 */
-function openEnv(){
-document.getElementById("env").classList.add("open");
-let l=document.getElementById("letter");
-l.style.display="block";
-type(l,"生日快乐 💌 愿你每天开心幸福");
+/* ===== 第三幕：WebGL 3D蛋糕 ===== */
+function initCake3D(){
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75,1,0.1,1000);
+
+const renderer = new THREE.WebGLRenderer({alpha:true});
+renderer.setSize(300,300);
+document.getElementById("cake3d").appendChild(renderer.domElement);
+
+/* 蛋糕 */
+const geometry = new THREE.CylinderGeometry(1,1,2,32);
+const material = new THREE.MeshBasicMaterial({color:0xffb6c1});
+const cake = new THREE.Mesh(geometry,material);
+scene.add(cake);
+
+camera.position.z = 5;
+
+function animate(){
+requestAnimationFrame(animate);
+cake.rotation.y += 0.01;
+cake.rotation.x += 0.005;
+renderer.render(scene,camera);
+}
+animate();
 }
 
-/* 打字 */
-function type(el,text){
-el.innerHTML="";
-let i=0;
-let t=setInterval(()=>{
-el.innerHTML+=text[i];
-i++;
-if(i>=text.length) clearInterval(t);
-},60);
+/* ===== 信封 ===== */
+function openEnvelope(){
+
+let env=document.getElementById("env");
+env.classList.add("open");
+
+/* 纸张弹出 */
+let paper=document.getElementById("paper");
+paper.classList.add("show");
 }
