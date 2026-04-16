@@ -2,16 +2,16 @@ let qIndex = 0;
 
 /* ===== 题库 ===== */
 const questions = [
-{q:"1+1=?", options:["1","2","3","4"], answer:"2"},
-{q:"太阳从哪边升起？", options:["西","北","东","南"], answer:"东"},
-{q:"水的化学式？", options:["CO2","O2","H2O","NaCl"], answer:"H2O"},
-{q:"一年有多少个月？", options:["10","11","12","13"], answer:"12"},
-{q:"5+3=?", options:["5","8","9","6"], answer:"8"},
-{q:"地球是？", options:["方","圆","三角","不规则"], answer:"圆"},
-{q:"猫英文？", options:["dog","cat","cow","pig"], answer:"cat"},
-{q:"10-7=?", options:["2","3","4","5"], answer:"3"},
-{q:"红色英文？", options:["blue","green","red","yellow"], answer:"red"},
-{q:"生日快乐英文？", options:["Happy Day","Happy Birth","Happy Birthday","Birth Happy"], answer:"Happy Birthday"}
+{q:"我们是怎么认识的？", options:["上班🐄","实习🐎","搭讪😏","打乒乓球🏓","上课📖"], answer:"搭讪😏"},
+{q:"我们认识的日期？", options:["6月12日","6月3日","4月17日","6月14日","不记得🤯"], answer:"不记得🤯"},
+{q:"我们在中国最常吃的食物是？", options:["螺狮粉","臭豆腐","姥姥下碗面","烧仙草","清汤粉"], answer:"螺狮粉"},
+{q:"回来马来西亚后我们吃的第一家餐厅是？", options:["太二酸菜鱼","中国兰州拉面","Uno Sushi","Mr Wu","Shin Zushi"], answer:"Uno Sushi"},
+{q:"你陪我打游戏玩到凌晨的地方是？", options:["福州","龙岩","厦门","赣州","泉州"], answer:"龙岩"},
+{q:"我们一起去过哪里旅行？", options:["泉州","厦门","漳州","福州","赣州"], answer:"赣州"},
+{q:"你放工后最想干嘛？", options:["直奔老巢","狠狠睡觉","刷剧","啥也不干","跟我一起玩"], answer:"跟我一起玩"},
+{q:"臭豆腐有几种口味？", options:["10","13","15","9","7"], answer:"15"},
+{q:"白羊座跟哪个星座最合拍？", options:["白羊座♈","金牛座♉","双子座♊","水瓶座♒","射手座♐"], answer:"双子座♊"},
+{q:"你最喜欢跟谁玩？", options:["晴"], answer:"晴"}
 ];
 
 /* ===== 页面切换 ===== */
