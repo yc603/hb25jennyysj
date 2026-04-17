@@ -1,9 +1,11 @@
 body{
-margin:0;
-font-family:Arial;
-background:url('images/xxr.png');
-color:#2052C7;
-overflow:hidden;
+  margin:0;
+  font-family:Arial;
+  background:url('images/xxr.png') center center no-repeat;
+  background-size: contain;
+  background-color: #000;
+  color:#2052C7;
+  overflow:hidden;
 }
 
 /* 页面切换 */
