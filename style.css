@@ -119,13 +119,65 @@ background:rgba(255,255,255,.55);
 }
 
 /* ===== 蛋糕 ===== */
+/* ===== 蛋糕区域更梦幻 ===== */
 #cake3d{
 margin-bottom:20px;
+padding:15px;
+border-radius:25px;
+
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(12px);
+
+box-shadow:
+0 10px 30px rgba(255,120,180,.18),
+0 0 25px rgba(255,255,255,.25) inset;
 }
 
+/* 让 canvas 更柔和 */
 #cake3d canvas{
 width:320px !important;
 height:320px !important;
+filter:
+drop-shadow(0 12px 18px rgba(255,100,180,.25))
+saturate(1.25)
+brightness(1.05);
+}
+
+/* 蛋糕标题 */
+#p3 h2{
+margin-top:8px;
+font-size:28px;
+font-weight:bold;
+
+background:linear-gradient(90deg,#ff5fa2,#ffb347,#7c5cff,#00c9ff,#ff5fa2);
+background-size:300% auto;
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:cakeTextMove 4s linear infinite;
+text-shadow:none;
+}
+
+@keyframes cakeTextMove{
+0%{background-position:0% center;}
+100%{background-position:300% center;}
+}
+
+/* 吹蜡烛按钮彩色升级 */
+#p3 button{
+margin-top:15px;
+background:linear-gradient(135deg,#ff6ec7,#ff9671,#ffc75f,#845ec2);
+background-size:250% 250%;
+animation:btnGlow 5s ease infinite;
+color:#fff;
+font-weight:bold;
+}
+
+@keyframes btnGlow{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 /* ===== 信封 ===== */
