@@ -258,7 +258,7 @@ setTimeout(typeLetter,300);
 /* 打字信 */
 function typeLetter(){
 
-let text = "2026年4月17日，本人一边修改代码一边躲避老板的目光，要是被抓现行就完犊子了😵。不过放心，本人不会允许这种事情发生✋🏿，我可是很谨慎的人😏\n祝你生日快乐🎂\n谢谢你一直这么包容我\n愿你每天都开心💖\n很可惜今天不能陪你过生日，虽然可能也没有很可惜😯~但是我的心意还是有的，请务必查收✉";
+let text = "2026年4月17日，本人一边修改代码一边躲避老板的目光，要是被抓现行就完犊子了😵\n不过放心，本人不会允许这种事情发生✋🏿，我可是很谨慎的人😏\n祝你生日快乐🎂\n谢谢你一直这么包容我，愿你每天都开心💖\n很可惜今天不能陪你过生日，虽然可能也没有很可惜😯~\n但是我的心意还是有的，请务必查收✉";
 
 let el = document.getElementById("letterText");
 let btn = document.getElementById("nextBtn");
@@ -282,7 +282,47 @@ btn.style.display="inline-block";
 /* ===== 第五幕 ===== */
 function startPhotos(){
 
-/* 打字 */
+/* 清除旧照片层 */
+let old = document.querySelector(".photos");
+if(old) old.remove();
+
+/* 建立照片层 */
+const wrap = document.createElement("div");
+wrap.className = "photos";
+document.getElementById("p5").appendChild(wrap);
+
+/* 33张照片名称 */
+const photos = [
+"1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg",
+"7.jpg","8.jpg","9.jpg","10.jpg","11.jpg",
+"12.jpg","13.jpg","14.jpg","15.jpg","16.jpg",
+"17.jpg","18.jpg","19.jpg","20.jpg","21.jpg",
+"22.jpg","23.jpg","24.jpg","25.jpg","26.jpg",
+"27.jpg","28.jpg","29.jpg","30.jpg","31.jpg",
+"32.jpg","33.jpg"
+];
+
+/* 掉落照片 */
+for(let i=0;i<33;i++){
+
+let box = document.createElement("div");
+box.className = "photo";
+
+box.style.left = Math.random()*100 + "vw";
+box.style.animationDuration = (6 + Math.random()*5)+"s";
+box.style.animationDelay = (Math.random()*4)+"s";
+box.style.transform = `rotate(${Math.random()*40-20}deg)`;
+
+box.innerHTML = `
+<div class="photo-inner"
+style="background-image:url('images/${photos[i]}')">
+</div>
+`;
+
+wrap.appendChild(box);
+}
+
+/* 明信片文字 */
 let text="生日快乐🎂\n绿老头🥸";
 let el=document.getElementById("typeText");
 
@@ -290,10 +330,11 @@ let i=0;
 el.innerHTML="";
 
 let t=setInterval(()=>{
-el.innerHTML += text[i];
+el.innerHTML += text[i]==="\n" ? "<br>" : text[i];
 i++;
 if(i>=text.length) clearInterval(t);
 },120);
+
 }
 
 window.onload = function(){
