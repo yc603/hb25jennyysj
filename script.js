@@ -92,98 +92,148 @@ let flame;
 function initCake3D(){
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75,1,0.1,1000);
-const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
-renderer.setSize(300,300);
+
+const camera = new THREE.PerspectiveCamera(45,1,0.1,1000);
+camera.position.set(0,2,7);
+
+const renderer = new THREE.WebGLRenderer({
+alpha:true,
+antialias:true
+});
+renderer.setSize(320,320);
 
 document.getElementById("cake3d").innerHTML="";
 document.getElementById("cake3d").appendChild(renderer.domElement);
 
 /* 光线 */
-const light = new THREE.PointLight(0xffffff,1.2);
-light.position.set(3,5,5);
-scene.add(light);
+const light1 = new THREE.PointLight(0xffffff,1.5);
+light1.position.set(4,6,5);
+scene.add(light1);
 
-const ambient = new THREE.AmbientLight(0xffffff,0.8);
-scene.add(ambient);
+const light2 = new THREE.AmbientLight(0xffffff,1);
+scene.add(light2);
 
-/* ===== 蛋糕底层（粉色） ===== */
-const layer1 = new THREE.Mesh(
-new THREE.CylinderGeometry(1.4,1.4,0.8,32),
-new THREE.MeshPhongMaterial({color:0xff8fb1})
+/* ===== 金色底盘 ===== */
+const plate = new THREE.Mesh(
+new THREE.CylinderGeometry(2.2,2.2,0.2,64),
+new THREE.MeshPhongMaterial({
+color:0xffd700,
+shininess:100
+})
 );
-layer1.position.y = -0.8;
+plate.position.y=-1.7;
+scene.add(plate);
+
+/* ===== 第一层 ===== */
+const layer1 = new THREE.Mesh(
+new THREE.CylinderGeometry(1.6,1.6,0.9,64),
+new THREE.MeshPhongMaterial({
+color:0xff9ec4,
+shininess:60
+})
+);
+layer1.position.y=-1.1;
 scene.add(layer1);
 
-/* ===== 中层（黄色） ===== */
+/* ===== 第二层 ===== */
 const layer2 = new THREE.Mesh(
-new THREE.CylinderGeometry(1.1,1.1,0.7,32),
-new THREE.MeshPhongMaterial({color:0xff9466})
+new THREE.CylinderGeometry(1.25,1.25,0.8,64),
+new THREE.MeshPhongMaterial({
+color:0xffd166,
+shininess:60
+})
 );
-layer2.position.y = 0;
+layer2.position.y=-0.15;
 scene.add(layer2);
 
-/* ===== 顶层（蓝色） ===== */
+/* ===== 第三层 ===== */
 const layer3 = new THREE.Mesh(
-new THREE.CylinderGeometry(0.8,0.8,0.6,32),
-new THREE.MeshPhongMaterial({color:0xd2ff66})
+new THREE.CylinderGeometry(0.9,0.9,0.7,64),
+new THREE.MeshPhongMaterial({
+color:0xa0e7ff,
+shininess:60
+})
 );
-layer3.position.y = 0.75;
+layer3.position.y=0.7;
 scene.add(layer3);
 
-/* ===== 彩色奶油球装饰 ===== */
+/* ===== 奶油球装饰 ===== */
 const creamColors = [
-0xff4d6d, // 红
-0xffd166, // 黄
-0x06d6a0, // 绿
-0x118ab2, // 蓝
-0xffffff  // 白
+0xffffff,
+0xff4d6d,
+0xffd166,
+0x7bd389,
+0x6ecbff
 ];
 
-for(let i=0;i<10;i++){
+for(let i=0;i<12;i++){
 
 const ball = new THREE.Mesh(
-new THREE.SphereGeometry(0.08,16,16),
+new THREE.SphereGeometry(0.09,16,16),
 new THREE.MeshPhongMaterial({
-color: creamColors[i % creamColors.length]
+color:creamColors[i%creamColors.length]
 })
 );
 
-let angle = (i / 10) * Math.PI * 2;
-ball.position.x = Math.cos(angle) * 0.7;
-ball.position.z = Math.sin(angle) * 0.7;
-ball.position.y = 1.1;
+let angle=(i/12)*Math.PI*2;
+
+ball.position.x=Math.cos(angle)*0.82;
+ball.position.z=Math.sin(angle)*0.82;
+ball.position.y=1.1;
 
 scene.add(ball);
 }
 
+/* ===== 草莓装饰 ===== */
+for(let i=0;i<5;i++){
+
+const berry = new THREE.Mesh(
+new THREE.SphereGeometry(0.13,16,16),
+new THREE.MeshPhongMaterial({
+color:0xff0033
+})
+);
+
+let angle=(i/5)*Math.PI*2;
+
+berry.position.x=Math.cos(angle)*0.45;
+berry.position.z=Math.sin(angle)*0.45;
+berry.position.y=1.25;
+
+scene.add(berry);
+}
+
 /* ===== 蜡烛 ===== */
 const candle = new THREE.Mesh(
-new THREE.CylinderGeometry(0.06,0.06,0.6,16),
-new THREE.MeshPhongMaterial({color:0xffffff})
+new THREE.CylinderGeometry(0.07,0.07,0.65,16),
+new THREE.MeshPhongMaterial({
+color:0xffffff
+})
 );
-candle.position.y = 1.55;
+candle.position.y=1.65;
 scene.add(candle);
 
 /* ===== 火焰 ===== */
 flame = new THREE.Mesh(
-new THREE.SphereGeometry(0.09,16,16),
-new THREE.MeshBasicMaterial({color:0xff6600})
+new THREE.SphereGeometry(0.12,16,16),
+new THREE.MeshBasicMaterial({
+color:0xff6600
+})
 );
-flame.position.y = 1.95;
+flame.position.y=2.05;
 scene.add(flame);
 
-camera.position.z = 5;
-
-/* 动画 */
+/* ===== 动画 ===== */
 function animate(){
+
 requestAnimationFrame(animate);
 
-layer1.rotation.y += 0.005;
-layer2.rotation.y += 0.005;
-layer3.rotation.y += 0.005;
+scene.rotation.y += 0.005;
 
-flame.scale.y = 1 + Math.sin(Date.now()*0.01)*0.15;
+if(flame){
+flame.scale.y = 1 + Math.sin(Date.now()*0.015)*0.3;
+flame.scale.x = 1 + Math.cos(Date.now()*0.02)*0.08;
+}
 
 renderer.render(scene,camera);
 }
