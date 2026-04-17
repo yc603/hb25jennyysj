@@ -293,46 +293,50 @@ let photos = [
 "img/46.jpg","img/47.jpg","img/48.jpg","img/49.jpg","img/50.jpg"
 ];
 
-let pageIndex = 0;
+let index = 0;
 let perPage = 6;
 
 function startPhotos(){
-    pageIndex = 0;
     renderPage();
 
-    // 自动翻页
     setInterval(()=>{
-        pageIndex++;
-        if(pageIndex * perPage >= photos.length){
-            pageIndex = 0;
-        }
-
-        let card = document.getElementById("pageCard");
-        card.classList.add("flip");
-
-        setTimeout(()=>{
-            renderPage();
-            card.classList.remove("flip");
-        },500);
-
+        flipPage();
     },3500);
 }
 
+/* 渲染当前页 */
 function renderPage(){
     let grid = document.getElementById("photoGrid");
     grid.innerHTML = "";
 
-    let start = pageIndex * perPage;
+    let start = index * perPage;
     let pagePhotos = photos.slice(start, start + perPage);
 
     pagePhotos.forEach(src=>{
         let div = document.createElement("div");
-        div.className = "photo-item";
+        div.className = "photo";
         div.style.backgroundImage = `url('${src}')`;
         grid.appendChild(div);
     });
 }
 
+/* 翻页动画 */
+function flipPage(){
+
+    let page = document.getElementById("page");
+    page.classList.add("flip");
+
+    setTimeout(()=>{
+        index++;
+        if(index * perPage >= photos.length){
+            index = 0;
+        }
+
+        renderPage();
+        page.classList.remove("flip");
+
+    },600);
+}
 
 window.onload = function(){
 
