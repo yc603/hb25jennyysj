@@ -2,10 +2,12 @@ body{
   margin:0;
   font-family:Arial;
   background:url('images/xxr.png') center center no-repeat;
-  background-size: contain;
-  background-color: #000;
+  background-size: cover;      /* 自动填满手机屏幕 */
+  background-attachment: fixed;
   color:#2052C7;
   overflow:hidden;
+  width:100%;
+  height:100vh;               /* 高度=手机屏幕 */
 }
 
 /* 页面切换 */
