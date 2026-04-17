@@ -343,81 +343,70 @@ font-size:17px;
 
 }
 
-/* ===== 书本容器 ===== */
+/* ===== 翻书相册 ===== */
 .book{
 width:100%;
 height:100%;
 display:flex;
 justify-content:center;
 align-items:center;
-perspective:1500px;
+perspective:2000px;
 }
 
-/* ===== 页面 ===== */
-.page-container{
+.book-inner{
 width:90%;
-max-width:420px;
-height:520px;
-
+max-width:520px;
+height:70vh;
+display:flex;
 position:relative;
 transform-style:preserve-3d;
-
-transition:0.6s;
+transition:1s;
 }
 
 /* 翻页动画 */
-.page-container.flip{
-transform:rotateY(-180deg);
+.book-inner.flip{
+transform: rotateY(-180deg);
 }
 
-/* 正面 */
-.page-front{
-position:absolute;
-width:100%;
-height:100%;
-
+/* 页 */
+.book-page{
+flex:1;
 background:#fffdf6;
-border-radius:16px;
-
-backface-visibility:hidden;
-
-box-shadow:
-0 20px 40px rgba(0,0,0,.25),
-inset 0 0 30px rgba(0,0,0,.05);
-
-padding:15px;
-}
-
-/* 背面（翻页用） */
-.page-back{
-position:absolute;
-width:100%;
-height:100%;
-
-background:#f3f0e7;
-border-radius:16px;
-
-transform:rotateY(180deg);
-backface-visibility:hidden;
-}
-
-/* ===== 照片网格 ===== */
-.grid{
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+padding:12px;
 display:grid;
 grid-template-columns:repeat(2,1fr);
-grid-gap:10px;
-height:100%;
+grid-auto-rows:1fr;
+gap:10px;
+backface-visibility:hidden;
+overflow:hidden;
+}
+
+/* 左页 */
+.left{
+border-radius:16px 0 0 16px;
+}
+
+/* 右页 */
+.right{
+border-radius:0 16px 16px 0;
+}
+
+/* 翻页时右页反转 */
+.right{
+transform-origin:left;
 }
 
 /* 照片 */
-.photo{
+.book-page img{
+width:100%;
+height:100%;
+object-fit:cover;
 border-radius:10px;
-background-size:cover;
-background-position:center;
 box-shadow:0 6px 12px rgba(0,0,0,.15);
 transition:0.3s;
 }
 
-.photo:hover{
-transform:scale(1.05);
+.book-page img:hover{
+transform:scale(1.03);
 }
