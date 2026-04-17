@@ -258,7 +258,7 @@ setTimeout(typeLetter,300);
 /* 打字信 */
 function typeLetter(){
 
-let text = "2026年4月17日，本人一边修改代码一边躲避老板的目光，要是被抓现行就完犊子了😵\n不过放心，本人不会允许这种事情发生✋🏿，我可是很谨慎的人😏\n祝你生日快乐🎂\n谢谢你一直这么包容我，愿你每天都开心💖\n很可惜今天不能陪你过生日，虽然可能也没有很可惜😯~\n但是我的心意还是有的，请务必查收✉";
+let text = "2026年4月17日，本人一边修改代码一边躲避老板的目光，要是被抓现行就完犊子了😵\n不过放心，这种事情将不被允许发生✋🏿，我可是很谨慎的人😏\n祝你生日快乐🎂\n谢谢你一直这么包容我，愿你每天都开心💖\n很可惜今天不能陪你过生日，虽然可能也没有很可惜😯~\n但是我的心意还是有的，请务必查收✉";
 
 let el = document.getElementById("letterText");
 let btn = document.getElementById("nextBtn");
@@ -291,16 +291,16 @@ document.getElementById("p5").appendChild(wrap);
 
 /* 50张照片 */
 const photos = [
-"1.jpg","2.jpg","3.jpg","4.jpg","5.jpg",
-"6.jpg","7.jpg","8.jpg","9.jpg","10.jpg",
-"11.jpg","12.jpg","13.jpg","14.jpg","15.jpg",
-"16.jpg","17.jpg","18.jpg","19.jpg","20.jpg",
-"21.jpg","22.jpg","23.jpg","24.jpg","25.jpg",
-"26.jpg","27.jpg","28.jpg","29.jpg","30.jpg",
-"31.jpg","32.jpg","33.jpg","34.jpg","35.jpg",
-"36.jpg","37.jpg","38.jpg","39.jpg","40.jpg",
-"41.jpg","42.jpg","43.jpg","44.jpg","45.jpg",
-"46.jpg","47.jpg","48.jpg","49.jpg","50.jpg"
+"1.png","2.png","3.png","4.png","5.png",
+"6.png","7.png","8.png","9.png","10.png",
+"11.png","12.png","13.png","14.png","15.png",
+"16.png","17.png","18.png","19.png","20.png",
+"21.png","22.png","23.png","24.png","25.png",
+"26.png","27.png","28.png","29.png","30.png",
+"31.png","32.png","33.png","34.png","35.png",
+"36.png","37.png","38.png","39.png","40.png",
+"41.png","42.png","43.png","44.png","45.png",
+"46.png","47.png","48.png","49.png","50.png"
 ];
 
 /* 掉落50张 */
