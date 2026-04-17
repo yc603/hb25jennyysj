@@ -276,6 +276,13 @@ width:100%;
 height:100%;
 overflow:hidden;
 pointer-events:none;
+
+z-index:5; /* ⭐关键：抬到背景上层 */
+}
+
+.photo{
+position:absolute;
+z-index:6; /* ⭐比背景更高 */
 }
 
 .photo{
