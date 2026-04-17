@@ -293,35 +293,46 @@ let photos = [
 "img/46.jpg","img/47.jpg","img/48.jpg","img/49.jpg","img/50.jpg"
 ];
 
-let photoIndex = 0;
+let pageIndex = 0;
+let perPage = 6;
 
 function startPhotos(){
-    photoIndex = 0;
-    showPhoto();
+    pageIndex = 0;
+    renderPage();
+
+    // 自动翻页
+    setInterval(()=>{
+        pageIndex++;
+        if(pageIndex * perPage >= photos.length){
+            pageIndex = 0;
+        }
+
+        let card = document.getElementById("pageCard");
+        card.classList.add("flip");
+
+        setTimeout(()=>{
+            renderPage();
+            card.classList.remove("flip");
+        },500);
+
+    },3500);
 }
 
-function showPhoto(){
-    let img = document.getElementById("photoView");
-    let indexText = document.getElementById("photoIndex");
+function renderPage(){
+    let grid = document.getElementById("photoGrid");
+    grid.innerHTML = "";
 
-    img.style.opacity = 0;
+    let start = pageIndex * perPage;
+    let pagePhotos = photos.slice(start, start + perPage);
 
-    setTimeout(()=>{
-        img.src = photos[photoIndex];
-        img.style.opacity = 1;
-        indexText.innerText = (photoIndex+1) + " / " + photos.length;
-    },200);
+    pagePhotos.forEach(src=>{
+        let div = document.createElement("div");
+        div.className = "photo-item";
+        div.style.backgroundImage = `url('${src}')`;
+        grid.appendChild(div);
+    });
 }
 
-function nextPhoto(){
-    photoIndex = (photoIndex + 1) % photos.length;
-    showPhoto();
-}
-
-function prevPhoto(){
-    photoIndex = (photoIndex - 1 + photos.length) % photos.length;
-    showPhoto();
-}
 
 window.onload = function(){
 
