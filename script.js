@@ -232,12 +232,48 @@ btn.style.display="inline-block";
 /* ===== 第五幕 ===== */
 function startPhotos(){
 
-for(let i=0;i<25;i++){
-let d=document.createElement("div");
-d.className="photo";
-d.style.left=Math.random()*100+"vw";
-d.style.animationDuration=(3+Math.random()*3)+"s";
-document.getElementById("photos").appendChild(d);
+const photos = [
+"img1.jpg",
+"img2.jpg",
+"img3.jpg",
+"img4.jpg",
+"img5.jpg",
+"img6.jpg"
+];
+
+const wrap = document.getElementById("photos");
+
+/* 防止重复进入时越堆越多 */
+wrap.innerHTML = "";
+
+/* 掉落数量 */
+for(let i=0;i<35;i++){
+
+let d = document.createElement("div");
+d.className = "photo";
+
+/* 随机照片 */
+let randomImg = photos[Math.floor(Math.random()*photos.length)];
+d.style.backgroundImage = `url('${randomImg}')`;
+
+/* 随机位置 */
+d.style.left = Math.random()*100 + "vw";
+
+/* 随机大小 */
+let size = 55 + Math.random()*45;
+d.style.width = size + "px";
+d.style.height = size + "px";
+
+/* 随机速度 */
+d.style.animationDuration = (4 + Math.random()*5) + "s";
+
+/* 随机延迟 */
+d.style.animationDelay = (Math.random()*5) + "s";
+
+/* 随机旋转角度 */
+d.style.transform = `rotate(${Math.random()*360}deg)`;
+
+wrap.appendChild(d);
 }
 
 /* 打字 */
@@ -251,7 +287,7 @@ let t=setInterval(()=>{
 el.innerHTML += text[i];
 i++;
 if(i>=text.length) clearInterval(t);
-},200);
+},120);
 }
 
 window.onload = function(){
