@@ -346,6 +346,37 @@ if(n>=text.length) clearInterval(t);
 
 }
 
+let bigView = null;
+
+document.addEventListener("click", function(e){
+
+if(e.target.classList.contains("photo")){
+
+if(bigView) bigView.remove();
+
+bigView = document.createElement("div");
+bigView.style.position = "fixed";
+bigView.style.top = "0";
+bigView.style.left = "0";
+bigView.style.width = "100vw";
+bigView.style.height = "100vh";
+bigView.style.background = "rgba(0,0,0,0.8)";
+bigView.style.display = "flex";
+bigView.style.alignItems = "center";
+bigView.style.justifyContent = "center";
+bigView.style.zIndex = "9999";
+
+bigView.innerHTML = `
+<img src="${e.target.style.backgroundImage.replace('url("','').replace('")','')}"
+style="max-width:90%;max-height:90%;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5)">
+`;
+
+bigView.onclick = ()=> bigView.remove();
+
+document.body.appendChild(bigView);
+}
+});
+
 window.onload = function(){
 
 document.getElementById("startBtn").addEventListener("click",function(){
