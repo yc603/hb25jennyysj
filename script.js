@@ -16,9 +16,23 @@ const questions = [
 
 /* ===== 页面切换 ===== */
 function go(n){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+
+document.querySelectorAll('.page').forEach(p=>{
+p.classList.remove('active');
+});
+
 document.getElementById('p'+n).classList.add('active');
 
+/* 第一次点击进入时播放音乐 */
+if(n === 2){
+let music = document.getElementById("bgm");
+
+music.play().catch(()=>{
+console.log("浏览器限制自动播放");
+});
+}
+
+/* 页面逻辑 */
 if(n===2) loadQ();
 if(n===3) initCake3D();
 if(n===5) startPhotos();
