@@ -190,7 +190,6 @@ renderer.render(scene,camera);
 
 animate();
 }
-}
 
 /* 吹蜡烛 */
 function blowCandle(){
