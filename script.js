@@ -319,15 +319,21 @@ if(i>=text.length) clearInterval(t);
 window.onload = function(){
 
 document.getElementById("startBtn").addEventListener("click",function(){
-
 go(2);
 
 let music = document.getElementById("bgm");
-
 if(music){
 music.play().catch(()=>{});
 }
-
 });
+
+/* ⭐⭐⭐ 这里加明信片点击事件 ⭐⭐⭐ */
+const card = document.getElementById("card");
+
+if(!card.classList.contains("flipped")){
+card.classList.add("flipped");
+typeLetter();
+});
+}
 
 };
