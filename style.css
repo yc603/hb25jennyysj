@@ -406,32 +406,65 @@ transform:translateY(0) scale(1);
 }
 }
 
-/* 手机版 */
-@media(max-width:700px){
+/* ===== 手机版明信片适配 ===== */
+@media (max-width:700px){
 
+#p7{
+padding:15px;
+overflow-y:auto;
+}
+
+/* 整张明信片改成上下布局 */
 .postcard-wrap{
 flex-direction:column;
+width:100%;
+max-width:420px;
 height:auto;
+border-radius:18px;
 }
 
-.postcard-left,
+/* 上方照片 */
+.postcard-left{
+width:100%;
+height:300px;
+padding:14px;
+}
+
+/* 照片更好看 */
+.postcard-left img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:14px;
+}
+
+/* 下方文字区 */
 .postcard-right{
 width:100%;
+padding:22px 20px 26px;
 }
 
-.postcard-left{
-height:320px;
-}
-
-.postcard-right{
-padding:25px;
-}
-
+/* 标题 */
 .postcard-right h2{
 font-size:24px;
+margin-bottom:12px;
+line-height:1.4;
 }
 
+/* 祝福语 */
 #wishText{
-font-size:17px;
+font-size:16px;
+line-height:1.9;
 }
+
+/* 按钮置中 */
+.postcard-right button{
+width:100%;
+margin-top:20px;
+align-self:center;
+font-size:16px;
+padding:14px;
+border-radius:14px;
+}
+
 }
