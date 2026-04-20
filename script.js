@@ -239,7 +239,7 @@ color:0xff69b4
 })
 );
 
-candle.position.y=2.35;
+candle.position.y=2.95;
 scene.add(candle);
 
 /* 火焰 */
