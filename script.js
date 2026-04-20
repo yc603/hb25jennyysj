@@ -101,7 +101,7 @@ function initCake3D(){
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(45,1,0.1,1000);
-camera.position.set(0,2.2,7);
+camera.position.set(0,2.8,8.5);   // 拉远镜头
 
 const renderer = new THREE.WebGLRenderer({
 alpha:true,
@@ -109,129 +109,109 @@ antialias:true
 });
 
 renderer.setSize(320,320);
-renderer.shadowMap.enabled = true;
 
 document.getElementById("cake3d").innerHTML="";
 document.getElementById("cake3d").appendChild(renderer.domElement);
 
-/* 灯光 */
-const light1 = new THREE.PointLight(0xffffff,2);
+/* 光线 */
+const light1 = new THREE.PointLight(0xffffff,2.2);
 light1.position.set(4,6,5);
 scene.add(light1);
 
-const light2 = new THREE.PointLight(0xffd6ec,1.5);
+const light2 = new THREE.PointLight(0xffddee,1.4);
 light2.position.set(-4,4,4);
 scene.add(light2);
 
-scene.add(new THREE.AmbientLight(0xffffff,1.2));
+scene.add(new THREE.AmbientLight(0xffffff,1.5));
 
-/* ===== 金色底盘 ===== */
+/* 金盘 */
 const plate = new THREE.Mesh(
-new THREE.CylinderGeometry(2.4,2.4,0.25,64),
+new THREE.CylinderGeometry(2.5,2.5,0.25,64),
 new THREE.MeshPhongMaterial({
 color:0xffd700,
-shininess:150
+shininess:180
 })
 );
-plate.position.y=-1.9;
+plate.position.y=-1.7;
 scene.add(plate);
 
-/* ===== 三层蛋糕 ===== */
+/* ===== 三层奶白蛋糕 ===== */
 
-const colors = [
-0xff9ec4,
-0xffd166,
-0xa0e7ff
-];
-
-const sizes = [
-1.7,1.3,0.95
-];
-
-const heights = [
--1.15,-0.2,0.75
-];
+const sizes=[1.75,1.35,1.0];
+const heights=[-0.8,0.15,1.0];
 
 for(let i=0;i<3;i++){
 
 let cake = new THREE.Mesh(
 new THREE.CylinderGeometry(sizes[i],sizes[i],0.9,64),
 new THREE.MeshPhongMaterial({
-color:colors[i],
-shininess:40
+color:0xfffdf8,
+shininess:55
 })
 );
 
-cake.position.y = heights[i];
+cake.position.y=heights[i];
 scene.add(cake);
 
-/* 白奶油顶部 */
+/* 顶部奶油 */
 let cream = new THREE.Mesh(
-new THREE.CylinderGeometry(sizes[i]+0.02,sizes[i]+0.02,0.22,64),
+new THREE.CylinderGeometry(sizes[i]+0.03,sizes[i]+0.03,0.22,64),
 new THREE.MeshPhongMaterial({
 color:0xffffff,
-shininess:80
+shininess:90
 })
 );
 
-cream.position.y = heights[i]+0.45;
+cream.position.y=heights[i]+0.45;
 scene.add(cream);
 
 /* 奶油滴落 */
 for(let j=0;j<18;j++){
 
 let drip = new THREE.Mesh(
-new THREE.CylinderGeometry(0.08,0.08,0.22+Math.random()*0.18,8),
+new THREE.CylinderGeometry(0.08,0.08,0.25+Math.random()*0.2,8),
 new THREE.MeshPhongMaterial({
 color:0xffffff
 })
 );
 
-let angle = (j/18)*Math.PI*2;
+let angle=(j/18)*Math.PI*2;
 
-drip.position.x = Math.cos(angle)*(sizes[i]-0.03);
-drip.position.z = Math.sin(angle)*(sizes[i]-0.03);
-drip.position.y = heights[i]+0.3;
+drip.position.x=Math.cos(angle)*(sizes[i]-0.02);
+drip.position.z=Math.sin(angle)*(sizes[i]-0.02);
+drip.position.y=heights[i]+0.28;
 
 scene.add(drip);
 }
 }
 
-/* ===== 奶油花 ===== */
-const creamColors = [
-0xffffff,
-0xff7eb3,
-0xffd166,
-0xbaffc9,
-0x8fd3ff
-];
-
+/* 粉色奶油球 */
 for(let i=0;i<14;i++){
 
-let ball = new THREE.Mesh(
+let deco = new THREE.Mesh(
 new THREE.SphereGeometry(0.12,16,16),
 new THREE.MeshPhongMaterial({
-color:creamColors[i%creamColors.length]
+color:i%2==0?0xff7eb3:0xffffff
 })
 );
 
 let angle=(i/14)*Math.PI*2;
 
-ball.position.x=Math.cos(angle)*1.0;
-ball.position.z=Math.sin(angle)*1.0;
-ball.position.y=1.15;
+deco.position.x=Math.cos(angle)*1.05;
+deco.position.z=Math.sin(angle)*1.05;
+deco.position.y=1.42;
 
-scene.add(ball);
+scene.add(deco);
 }
 
-/* ===== 草莓 ===== */
+/* 草莓 */
 for(let i=0;i<6;i++){
 
 let berry = new THREE.Mesh(
 new THREE.SphereGeometry(0.16,18,18),
 new THREE.MeshPhongMaterial({
 color:0xff0033,
-shininess:90
+shininess:100
 })
 );
 
@@ -239,42 +219,23 @@ let angle=(i/6)*Math.PI*2;
 
 berry.position.x=Math.cos(angle)*0.55;
 berry.position.z=Math.sin(angle)*0.55;
-berry.position.y=1.33;
+berry.position.y=1.62;
 
 scene.add(berry);
 }
 
-/* ===== 爱心装饰 ===== */
-for(let i=0;i<8;i++){
-
-let heart = new THREE.Mesh(
-new THREE.SphereGeometry(0.08,10,10),
-new THREE.MeshPhongMaterial({
-color:0xff4d88
-})
-);
-
-let angle=(i/8)*Math.PI*2;
-
-heart.position.x=Math.cos(angle)*1.45;
-heart.position.z=Math.sin(angle)*1.45;
-heart.position.y=-0.95;
-
-scene.add(heart);
-}
-
-/* ===== 蜡烛 ===== */
+/* 蜡烛 */
 const candle = new THREE.Mesh(
 new THREE.CylinderGeometry(0.07,0.07,0.7,16),
 new THREE.MeshPhongMaterial({
-color:0xff77aa
+color:0xff69b4
 })
 );
 
-candle.position.y=1.7;
+candle.position.y=2.0;
 scene.add(candle);
 
-/* ===== 火焰 ===== */
+/* 火焰 */
 flame = new THREE.Mesh(
 new THREE.SphereGeometry(0.14,16,16),
 new THREE.MeshBasicMaterial({
@@ -282,10 +243,10 @@ color:0xff9900
 })
 );
 
-flame.position.y=2.15;
+flame.position.y=2.45;
 scene.add(flame);
 
-/* ===== 动画 ===== */
+/* 动画 */
 function animate(){
 
 requestAnimationFrame(animate);
