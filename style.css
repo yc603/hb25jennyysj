@@ -133,6 +133,13 @@ background:rgba(255,255,255,.55);
 /* ===== 蛋糕 ===== */
 /* ===== 蛋糕区域更梦幻 ===== */
 #cake3d{
+width:100%;
+height:360px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
 margin-bottom:20px;
 padding:15px;
 border-radius:25px;
@@ -143,6 +150,21 @@ backdrop-filter:blur(12px);
 box-shadow:
 0 10px 30px rgba(255,120,180,.18),
 0 0 25px rgba(255,255,255,.25) inset;
+}
+
+#cakeWrap{
+width:100%;
+height:100%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+#cakeWrap canvas{
+display:block;
+margin:auto;
+}
 
 /* ⭐新增：强制居中 */
 display:flex;
