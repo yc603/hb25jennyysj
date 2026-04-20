@@ -122,14 +122,15 @@ const light2 = new THREE.PointLight(0xffddee,1.4);
 light2.position.set(-4,4,4);
 scene.add(light2);
 
-scene.add(new THREE.AmbientLight(0xffffff,1.5));
+scene.add(new THREE.AmbientLight(0xffffff,2.4));
 
 /* 金盘 */
 const plate = new THREE.Mesh(
 new THREE.CylinderGeometry(2.5,2.5,0.25,64),
-new THREE.MeshPhongMaterial({
-color:0xffd700,
-shininess:180
+new THREE.MeshStandardMaterial({
+color:0xfff8ee,
+roughness:0.45,
+metalness:0
 })
 );
 plate.position.y=-1.7;
