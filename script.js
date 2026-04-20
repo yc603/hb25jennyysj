@@ -115,9 +115,19 @@ renderer.setPixelRatio(window.devicePixelRatio);
 
 container.innerHTML = "";
 container.appendChild(renderer.domElement);
+    
+const container = document.getElementById("cakeWrap");
 
-document.getElementById("cake3d").innerHTML="";
-document.getElementById("cakeWrap").appendChild(renderer.domElement);
+const renderer = new THREE.WebGLRenderer({
+    alpha:true,
+    antialias:true
+});
+
+renderer.setSize(320, 320);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+container.innerHTML = "";
+container.appendChild(renderer.domElement);
 
 /* 光线 */
 const light1 = new THREE.PointLight(0xffffff,2.2);
