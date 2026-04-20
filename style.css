@@ -135,6 +135,8 @@ background:rgba(255,255,255,.55);
 #cake3d{
 width:100%;
 height:380px;
+z-index: 5;
+position: relative;
 
 display:flex;
 justify-content:center;
