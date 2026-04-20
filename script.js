@@ -101,7 +101,7 @@ function initCake3D(){
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(45,1,0.1,1000);
-camera.position.set(0,2.8,8.5);   // 拉远镜头
+camera.position.set(0,3.2,8.5);   // 拉远镜头
 
 const renderer = new THREE.WebGLRenderer({
 alpha:true,
@@ -133,20 +133,26 @@ roughness:0.45,
 metalness:0
 })
 );
-plate.position.y=-1.7;
+plate.position.y=-1.05;
 scene.add(plate);
 
 /* ===== 三层奶白蛋糕 ===== */
 
 const sizes=[1.75,1.35,1.0];
-const heights=[-0.8,0.15,1.0];
+const heights=[-0.15,0.8,1.75];
+
+const colors=[
+0xffb6d9,   // 粉色
+0xffe38a,   // 黄色
+0xaee8ff    // 蓝色
+];
 
 for(let i=0;i<3;i++){
 
 let cake = new THREE.Mesh(
 new THREE.CylinderGeometry(sizes[i],sizes[i],0.9,64),
 new THREE.MeshPhongMaterial({
-color:0xfffdf8,
+color:colors[i],
 shininess:55
 })
 );
